@@ -85,3 +85,8 @@ Funkcijas ir nodalītas, lai boti varētu sacensties savā starpā.
 ## 5. Grafiskā interfeisa (GUI) saderība
 * GUI skriptam (piemēram, `gui.py` tajā pašā mapē) ir jāimportē `get_move` un Swap2 funkcijas no sava `bot.py` (`from bot import get_move, swap2_propose, swap2_respond, swap2_final_choice`).
 * Spēles loģika un AI lēmumu pieņemšana nedrīkst būt ielikta GUI pogu apstrādātājos — GUI tikai nolasa laukuma stāvokli, padod to `bot.py` funkcijām un attēlo atgrieztās koordinātas.
+
+## 6. Spēles palaišana
+* Grafisko cilvēka un bota spēli palaiž ar `python gui.py` no projekta mapes.
+* Pirms spēles var izvēlēties botu un to, kurš sāk. `Swap2` ļauj otrajam spēlētājam izvēlēties krāsu vai novietot vēl divas figūras, pēc kā pirmais izvēlas krāsu, mazinot pirmā gājiena priekšrocību.
+* Uzvara tiek noteikta piecām vienādām figūrām pēc kārtas; ja laukums piepildās bez uzvarētāja, spēle beidzas neizšķirti.

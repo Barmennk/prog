@@ -14,6 +14,7 @@ BOARD_SIZE = 15
 WIN_LEN = 5
 MOVE_TIMEOUT = 1.0  # Sekundes vienam gājienam / Swap2 lēmumam
 BOTS_PATTERN = "tic-tac-toe/*/bot.py"
+STUDENT_BOTS_PATTERN = "studenti/*/bot.py"
 
 
 def create_board() -> list[list[str]]:
@@ -173,7 +174,7 @@ def play_match(p1: dict, p2: dict, on_board=None) -> tuple[str, str]:
     else:
         return p1["id"], f"{p2['name']} nezināma Swap2 darbība: {action}"
 
-    # === 4. SOLIS: Pamatspēle (4. gājienu vienmēr veic 'O') ===
+    # === 4. SOLIS: Pamatspēli sāk 'O' (4. vai 6. gājiens). ===
     placed_count = sum(cell != "_" for row in board for cell in row)
     turn_order = [("O", bot_o), ("X", bot_x)]
 
@@ -221,11 +222,16 @@ def print_standings(stats: dict, title: str = "PAŠREIZĒJĀ TABULA"):
 
 
 def run_tournament():
-    bots = load_bots(BOTS_PATTERN)
+    bots_by_id = {
+        bot["id"]: bot
+        for pattern in (BOTS_PATTERN, STUDENT_BOTS_PATTERN)
+        for bot in load_bots(pattern)
+    }
+    bots = list(bots_by_id.values())
     n = len(bots)
 
     if n < 2:
-        print(f"Atrasti tikai {n} derīgi boti pēc ceļa '{BOTS_PATTERN}'. Turnīram vajag vismaz 2.")
+        print(f"Atrasti tikai {n} derīgi boti. Turnīram vajag vismaz 2.")
         return
 
     print("=" * 74)
